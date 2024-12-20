@@ -6,9 +6,9 @@
         <a href="{{ url('/teachers/create') }}" type="button" class="btn btn-primary">Create Teacher</a>
     </div>
 
-    @if (session('created'))
+    @if (session('status'))
         <div class="alert alert-success" role="alert">
-            {{ session('created') }}
+            {{ session('status') }}
         </div>
     @endif
 
@@ -24,13 +24,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($teachers as $teachers)
+                    @foreach ($teachers as $teacher)
                         <tr>
-                            <td>{{ $teachers->name }}</td>
-                            <td>{{ $teachers->address }}</td>
-                            <td>{{ $teachers->birthdate }}</td>
-                            <td><a href="{{ url("/teachers/{$teachers->id}") }}" type="button"
-                                    class="btn btn-sm btn-primary">Show</a></td>
+                            <td>{{ $teacher->name }}</td>
+                            <td>{{ $teacher->address }}</td>
+                            <td>{{ $teacher->birthdate }}</td>
+                            <td>
+                                <a href="{{ url("/teachers/{$teacher->id}") }}" type="button"
+                                    class="btn btn-sm btn-primary">Show</a>
+                                <a href="{{ url("/teachers/{$teacher->id}/edit") }}" type="button"
+                                    class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ url("/teachers/{$teacher->id}") }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

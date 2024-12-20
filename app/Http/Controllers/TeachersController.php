@@ -21,18 +21,43 @@ class TeachersController extends Controller
 
     public function store(Request $request)
     {
-        $teachers = Teacher::create([
+        $teacher = Teacher::create([
             'name' => $request->name,
             'address' => $request->address,
             'birthdate' => $request->birthdate,
         ]);
 
         return redirect('/teachers')
-            ->with('created', "Teacher {$request->name} successfully created!");
+            ->with('status', "Teacher {$request->name} successfully created!");
     }
 
-    public function show(Teacher $teachers)
+    public function show(Teacher $teacher)
     {
-        return view('teachers.show', ['teachers' => $teachers]);
+        return view('teachers.show', ['teachers' => $teacher]);
+    }
+
+    public function edit(Teacher $teacher)
+    {
+        return view('teachers.edit', ['teacher' => $teacher]);
+    }
+
+    public function update(Request $request, Teacher $teacher)
+    {
+        $teacher->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'birthdate' => $request->birthdate,
+        ]);
+
+        return redirect('/teachers')
+            ->with('status', "Teacher {$teacher->name} successfully updated!");
+    }
+
+    public function destroy(Teacher $teacher)
+    {
+        $teacher->delete();
+
+        return redirect('/teachers')
+            ->with('status', "Teacher {$teacher->name} successfully deleted!");
     }
 }

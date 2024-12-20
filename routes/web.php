@@ -13,6 +13,12 @@ Route::prefix('/students')
         Route::get('/', 'index');
         Route::get('/create', 'create');
         Route::get('/{student}', 'show');
+
+        Route::get('/{student}/edit', 'edit');
+        Route::put('/{student}', 'update');
+
+        Route::delete('/{student}', 'destroy');
+
         Route::post('/', 'store');
     });
 
@@ -22,5 +28,11 @@ Route::prefix('/teachers')
         Route::get('/', 'index');
         Route::get('/create', 'create');
         Route::get('/{teacher}', 'show');
+
+        Route::get('/{teacher}/edit', 'edit');
+        Route::put('/{teacher}', 'update');
+
+        Route::delete('/{teacher}', 'destroy');
+
         Route::post('/', 'store');
     });

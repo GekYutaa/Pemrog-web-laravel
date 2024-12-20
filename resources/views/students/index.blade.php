@@ -6,9 +6,9 @@
         <a href="{{ url('/students/create') }}" type="button" class="btn btn-primary">Create Student</a>
     </div>
 
-    @if (session('created'))
+    @if (session('status'))
         <div class="alert alert-success" role="alert">
-            {{ session('created') }}
+            {{ session('status') }}
         </div>
     @endif
 
@@ -29,8 +29,17 @@
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->address }}</td>
                             <td>{{ $student->birthdate }}</td>
-                            <td><a href="{{ url("/students/{$student->id}") }}" type="button"
-                                    class="btn btn-sm btn-primary">Show</a></td>
+                            <td>
+                                <a href="{{ url("/students/{$student->id}") }}" type="button"
+                                    class="btn btn-sm btn-primary">Show</a>
+                                <a href="{{ url("/students/{$student->id}/edit") }}" type="button"
+                                    class="btn btn-sm btn-warning">Edit</a>
+                                <form action="{{ url("/students/{$student->id}") }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
